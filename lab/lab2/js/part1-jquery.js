@@ -94,7 +94,18 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
     you might want to include a name, an address, an age, a couple of boolean characteristics, and a
     favorite color. Don't spend too much time on thinking about the perfect object to represent with
     this form, just about anything will do.
-
+===================== */
+$('#text-label1').text('name');
+$('#text-label2').text('address');
+$('#text-label3').text('hobby');
+$('#number-label').text('age');
+$('#checkbox-label1').text('Is Male');
+$('#checkbox-label2').text('From South');
+$('#color-label').text('Skin Color');
+$('#lon-label').text('longitude');
+$('#lat-label').text('latitude');
+$('#des-label').text('description');
+/* =====================
   Task 2: Setting (writing) input values
     *NOTE*: An input's value is not the same as an HTML element's text. We use $(selector).val() as
             opposed to $(selector).text() in this case.
@@ -103,10 +114,40 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
     properties of people, the name might be 'bob' and the favorite color could be green (hint: you'll
     want to get formatting exactly right to set a color field; experiment in the console to see what
     the color you'll specify should look like).
-
+===================== */
+$('#text-input1').val('Jason');
+$('#text-input2').val('Shanghai');
+$('#text-input3').val('soccer');
+$('#numeric-input').val('28');
+$('#cbox-input1').prop("checked",true);
+$('#cbox-input2').prop("checked",false);
+$('#color-input').val('#fff200');
+$('#lat-input').val();
+$('#lon-input').val();
+/* =====================
   Task 3: Getting (reading) input values
     Write the code necessary to read from your input form and return a javascript object (with keys
     to clarify the meaning of each value) that has all the data that's stored in your form.
+===================== */
+var form;
+var getInfo = function(form){
+  form = {
+    name: $('#text-input1').val(),
+    address: $('#text-input2').val(),
+    hobby: $('#text-input3').val(),
+    age: $('#numeric-input').val(),
+    IsMale: $('#cbox-input1').prop("checked"),
+    FromSouth: $('#cbox-input2').prop("checked"),
+    color: $('#color-input').val(),
+    latitude: $('#lat-input').val(),
+    longitude: $('#lon-input').val(),
+    description: $('#des-input').val(),
+  };
+  console.log(form);
+  return form;
+};
+
+/* =====================
 
   Task 4: Enable user interaction with the form
     At this point, we're really only using HTML input fields as a kind of storage. We create some data,
@@ -126,7 +167,16 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
     $('#someInput').prop('disabled', true);  -> <input id="someInput" type="number" disabled>
 
     Enable *all* fields on this form.
-
+===================== */
+console.log($('#text-input1').prop('disabled'));
+$('#text-input1').prop('disabled',false);
+$('#text-input2').prop('disabled',false);
+$('#text-input3').prop('disabled',false);
+$('#numeric-input').prop('disabled',false);
+$('#cbox-input1').prop('disabled',false);
+$('#cbox-input2').prop('disabled',false);
+$('#color-input').prop('disabled',false);
+/* =====================
   Task 5: Add a button trigger to log this form's object to console
     We now can enter data through the HTML and create an object to represent that data. Add a button
     click event to the button at the bottom of your form. This means that we want to use jQuery to
@@ -136,11 +186,25 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
     Keep in mind that events are asynchronous, just like ajax. The function you bind is not called
     until the event on which it is bound is triggered.
 
+===================== */
+
+/* =====================
   Task 6: Plot input data to the map on button click
     Modify this form to include at least a lat (number), long (number), description (text), and
     color (color) inputs. With these inputs you should be able to plot a circle marker
     (http://leafletjs.com/reference.html#circlemarker) to the lat/long on the form, with the color
     provided, and a bound popup which gives you the description.
+
+===================== */
+var plotting = function(form){
+  if(form.length){
+    L.circleMarker([form.latitude,form.longitude],{color:form.color})
+        .bindPopup(form.description).addTo(map);
+    console.log('plottingtest');
+  }
+};
+
+/* =====================
 
   // STRETCH GOALS
   Task 7: Use default values - OPTIONAL
@@ -168,6 +232,13 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
 // This is a popular pattern that you'll run into in programs that run jQuery. It says not to run
 // the function passed to `ready` until the HTML document is fully loaded and all scripts have
 // been interpreted. It is, therefore, an example of asynchronous behavior.
-$(document).ready(function() {
+$(document).ready(function(){
+
+  $('button').click(function(form){
+    console.log('clicked');
+    getInfo(form);
+    console.log(form);
+    plotting(form);
+  });
   // Do your stuff here
 });
