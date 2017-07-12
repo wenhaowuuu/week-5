@@ -82,7 +82,7 @@
 ===================== */
 var map = L.map('map', {
   center: [39.9522, -75.1639],
-  zoom: 14
+  zoom: 12
 });
 var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -104,11 +104,13 @@ var ManyVehicle = function(data){
 });
 };
 
-var makeMarkers = function(array, lat, long) {
+// L.circleMarker(39.9522, -75.1639,style).addTo(map);
+
+var makeMarkers = function(array) {
   return _.map(array,function(p){
     var veh = p.VEHICLE_CO;
     var style = {'radius':veh*5, 'fillColor':'#cc5000'};
-    return L.circleMarker([p[lat],p[long]],style);
+    return L.circleMarker(p.LAT,p.LON,style);
   });
 };
 
@@ -128,6 +130,9 @@ var removeMarkers = function(array) {
   }
 };
 
+
+L.marker([39.9522, -75.1639]).addTo(map);
+
 $(document).ready(function(){
 
   $('button').click(function(){
@@ -137,14 +142,19 @@ $(document).ready(function(){
     var long = $('#text-input3').val() ;
 
     $.ajax(url).done(function(data) {
-      console.log(data);
+      // console.log(data);
+      console.log("step1");
       var parsed = parseData(data);
-      console.log(parsed);
+      console.log("step2");
+      // console.log(parsed);
       var filterparsed = ManyVehicle(parsed);
       console.log(filterparsed);
-      var markers = makeMarkers(filterparsed, lat, long);
-      console.log(markers);
+      console.log("step3");
+      var markers = makeMarkers(filterparsed);
+      // console.log(markers);
+      console.log("step4");
       plotMarkers(markers);
+      console.log("step5");
     // removeMarkers(markers);
     });
   });

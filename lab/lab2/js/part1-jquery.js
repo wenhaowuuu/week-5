@@ -96,8 +96,9 @@ var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/ton
     this form, just about anything will do.
 ===================== */
 $('#text-label1').text('name');
-$('#text-label2').text('address');
-$('#text-label3').text('hobby');
+$('#text-label2').text('address line 1');
+$('#text-label3').text('address line 2');
+$('#text-label4').text('hobby');
 $('#number-label').text('age');
 $('#checkbox-label1').text('Is Male');
 $('#checkbox-label2').text('From South');
@@ -117,7 +118,8 @@ $('#des-label').text('description');
 ===================== */
 $('#text-input1').val('Jason');
 $('#text-input2').val('Shanghai');
-$('#text-input3').val('soccer');
+$('#text-input3').val('231 Nanjing Road');
+$('#text-input4').val('soccer');
 $('#numeric-input').val('28');
 $('#cbox-input1').prop("checked",true);
 $('#cbox-input2').prop("checked",false);
@@ -172,6 +174,7 @@ console.log($('#text-input1').prop('disabled'));
 $('#text-input1').prop('disabled',false);
 $('#text-input2').prop('disabled',false);
 $('#text-input3').prop('disabled',false);
+$('#text-input4').prop('disabled',false);
 $('#numeric-input').prop('disabled',false);
 $('#cbox-input1').prop('disabled',false);
 $('#cbox-input2').prop('disabled',false);

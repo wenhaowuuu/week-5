@@ -28,3 +28,13 @@ body {
   color: #fff;
   position: absolute;
 }
+
+
+.section-features {
+  background-color: #eee;
+  text-align: center;
+}
+
+.image{
+  width:auto;
+}

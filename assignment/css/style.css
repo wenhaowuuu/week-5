@@ -15,7 +15,7 @@ body {
 .sidebar {
     position: absolute;
     left: 0px;
-    width: 340px;
+    width: 350px;
     top: 0;
     bottom: 0;
     overflow-y: auto;
